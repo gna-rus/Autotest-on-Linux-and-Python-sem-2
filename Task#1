@@ -1,6 +1,7 @@
 import subprocess
 
 folder = f"/home/zerg/"
+folder1 = f"/home/zerg/folder1"
 
 def checkout(cmd, text):
     result = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, encoding='utf-8')
@@ -30,3 +31,4 @@ def test_step4():
 def test_step5():
     # x: eXtract файлы с полными путями
     assert checkout(f"cd {folder}out; 7z x arx2.7z", "Everything is 0k"), "test5 FAIL"
+    # assert checkout(f"cd {folder}out; 7z x arx2.7z -o{folder1} -y", "Everything is 0k"), "test5 FAIL" может так правильнее
