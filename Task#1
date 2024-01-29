@@ -1,0 +1,32 @@
+import subprocess
+
+folder = f"/home/zerg/"
+
+def checkout(cmd, text):
+    result = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, encoding='utf-8')
+    if text in result.stdout and result.returncode == 0:
+        return True
+    else:
+        return False
+
+
+def test_step1():
+    # a: добавить файлы в архив, если архивного файла не существует, создает его (архивация)
+    print(checkout(f"ls {folder}out", "arx2")) # проверка на наличие файла по ссылке
+    assert checkout(f"cd {folder}tst; 7z a ../out/arx2", "Everything is Ok"), "test1 FAIL"
+
+def test_step2():
+    # e: извлечение файлов из архива без использования имен каталогов — все файлы оказываются в текущей директории (дезархивация)
+    assert checkout(f"cd {folder}out; 7z e arx2.7z -o/home/zerg/folder1 -y", "Everything is 0k"), "test2 FAIL"
+
+def test_step3():
+    # t: проверка целостности архива
+    assert checkout(f"cd {folder}out; 7z t arx2.7z", "Everything is 0k"), "test3 FAIL"
+
+def test_step4():
+    # l: вывести список содержимого архива
+    assert checkout(f"cd {folder}out; 7z l arx2.7z", "Everything is 0k"), "test4 FAIL"
+
+def test_step5():
+    # x: eXtract файлы с полными путями
+    assert checkout(f"cd {folder}out; 7z x arx2.7z", "Everything is 0k"), "test5 FAIL"
