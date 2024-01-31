@@ -1,21 +1,35 @@
 import subprocess
-folder = f"C:/Users/grigoriev.na/Desktop/Уроки/GeekBrains/python/"
+folder = f"/home/user"
+folder1 = f"/home/zerg/folder1"
 
 def find_subprocess(path: str, text: str):
-    result = subprocess.run(path, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding='utf-8')
-    lst = result.stdout.split("\n") + result.stderr.split("\n")
-    print(lst)
-    if result.returncode != 0:
-        if text in lst:
-            return True
-        else:
-            return False
-    else:
-        return False
+result = subprocess.run(path, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding='utf-8')
+lst = result.stdout.split("\n") + result.stderr.split("\n")
+print(lst, text in lst)
+if text in lst:
+return True
+else:
+return False
+
+
+def test_step1():
+# a: добавить файлы в архив, если архивного файла не существует, создает его (архивация)
+assert find_subprocess(f"cd {folder}tst; 7z a ../out/arx2", "Everything is Ok"), "test1 FAIL"
 
 def test_step2():
-    # проверка на распаковку
-    #  {data['out']} - содержит просто ссылку
-    res 1 = find_subprocess(f"cd {data['out']}; 7z ear x2.7z -o{data['folder1']} -y", "Everything is 0k")
-    res 2 = find_subprocess(f"ls {data['folder 1']}", "testtxt")
-    assert res1 and res2, "test2 FAIL"
+# e: извлечение файлов из архива без использования имен каталогов — все файлы оказываются в текущей директории (дезархивация)
+
+assert find_subprocess(f"cd {folder}/out; 7z e arx2.7z -o{folder}/out -y", 'Everything is Ok'), "test2 FAIL"
+
+def test_step3():
+# t: проверка целостности архива
+assert find_subprocess(f"cd {folder}/out; 7z t arx2.7z", 'Everything is Ok'), "test3 FAIL"
+
+def test_step4():
+# l: вывести список содержимого архива
+# cd /home/user/out; 7z l arx2.7z
+assert find_subprocess(f"cd {folder}/out; 7z l arx2.7z", 'Listing archive: arx2.7z'), "test4 FAIL"
+
+def test_step5():
+# x: eXtract файлы с полными путями
+assert find_subprocess(f"cd {folder}/out; 7z x arx2.7z -o/home/user/out/new_out", 'Everything is Ok'), "test5 FAIL"
