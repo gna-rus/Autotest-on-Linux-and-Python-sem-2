@@ -28,7 +28,7 @@ assert find_subprocess(f"cd {folder}/out; 7z t arx2.7z", 'Everything is Ok'), "t
 def test_step4():
 # l: вывести список содержимого архива
 # cd /home/user/out; 7z l arx2.7z
-assert find_subprocess(f"cd {folder}/out; 7z l arx2.7z", 'Listing archive: arx2.7z'), "test4 FAIL"
+assert find_subprocess(f"cd {folder}/out; 7z l arx2.7z", 'test.txt'), "test4 FAIL"
 
 def test_step5():
 # x: eXtract файлы с полными путями
