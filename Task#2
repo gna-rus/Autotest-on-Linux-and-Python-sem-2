@@ -1,3 +1,8 @@
+# Задание 2
+# Установить пакет для расчёта crc32
+# sudo apt install libarchive-zip-perl
+# Доработать проект, добавив тест команды расчёта хеша (h). Проверить, что хеш совпадает с рассчитанным командой crc32.
+
 import subprocess
 folder = f"/home/user"
 folder1 = f"/home/zerg/folder1"
